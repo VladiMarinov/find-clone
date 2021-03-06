@@ -50,10 +50,10 @@ int main(int argc, char** argv)
     {
         printf("usage: ./find [target file name]\n");
         printf("       ./find [start directory] [target file name]\n");
-        return -1;
+        return EXIT_FAILURE;
     }
     if (argc == 2) search(getcwd(NULL,0), argv[1]);
     if (argc == 3) search(argv[1], argv[2]);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
