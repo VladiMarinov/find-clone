@@ -28,12 +28,12 @@ void search(const char* start_dir, const char* target_file_name)
         if (curr_dir_entry->d_type == DT_DIR)
         {
             size_t curr_dir_name_len = strlen(curr_dir_entry->d_name) + 1;
-            char* curr_dir_name = calloc(curr_dir_name_len, sizeof(char));
+            char* curr_dir_name = calloc(curr_dir_name_len, sizeof(*curr_dir_name));
             snprintf(curr_dir_name, curr_dir_name_len, "%s", curr_dir_entry->d_name);
             if (strcmp(curr_dir_name, ".") != 0 && strcmp(curr_dir_name, "..") != 0)
             {
                 size_t total_len = strlen(start_dir) + strlen(curr_dir_name) + 2;
-                char* next_start_dir = calloc(total_len,sizeof(char));
+                char* next_start_dir = calloc(total_len,sizeof(*next_start_dir));
                 snprintf(next_start_dir, total_len, "%s/%s", start_dir, curr_dir_name);
 
                 search(next_start_dir, target_file_name);
