@@ -33,9 +33,7 @@ void search(const char* start_dir, const char* target_file_name)
             {
                 int total_len = strlen(start_dir) + strlen(curr_dir_name) + 2;
                 char* next_start_dir = calloc(total_len,sizeof(char));
-                strcat(next_start_dir, start_dir);
-                strcat(next_start_dir, "/");
-                strcat(next_start_dir, curr_dir_name);
+                snprintf(next_start_dir, total_len, "%s/%s", start_dir, curr_dir_name);
 
                 search(next_start_dir, target_file_name);
             }
