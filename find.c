@@ -3,8 +3,25 @@
 #include <dirent.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 // TODO: Take care of space complexity in regards of searched filesystem size...
+
+char* gnu_getcwd ()
+{
+  size_t size = 100;
+
+  while (1)
+    {
+      char *buffer = (char *) malloc (size);
+      if (getcwd (buffer, size) == buffer)
+        return buffer;
+      free (buffer);
+      if (errno != ERANGE)
+        return 0;
+      size *= 2;
+    }
+}
 
 void search(const char* start_dir, const char* target_file_name)
 {
@@ -56,7 +73,7 @@ int main(int argc, char** argv)
         printf("       ./find [start directory] [target file name]\n");
         return EXIT_FAILURE;
     }
-    if (argc == 2) search(getcwd(NULL,0), argv[1]);
+    if (argc == 2) search(gnu_getcwd(), argv[1]);
     if (argc == 3) search(argv[1], argv[2]);
 
     return EXIT_SUCCESS;
