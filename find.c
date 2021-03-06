@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+// TODO: Take care of space complexity in regards of searched filesystem size...
+
 void search(const char* start_dir, const char* target_file_name)
 {
     DIR* dir_stream = opendir(start_dir);
@@ -37,7 +39,9 @@ void search(const char* start_dir, const char* target_file_name)
                 snprintf(next_start_dir, total_len, "%s/%s", start_dir, curr_dir_name);
 
                 search(next_start_dir, target_file_name);
+                free(next_start_dir);
             }
+            free(curr_dir_name);
         }
     }
 
